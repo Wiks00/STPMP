@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bitcoin.Curses.BuyPricePage"
+             xmlns:effects="clr-namespace:Bitcoin.Curses.Effects"
+             BindingContext="{Binding Main.ExchangeRateDetail, Source={StaticResource Locator}}"
+             Title="Buy Price">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Refresh" Icon="refresh.png" Order="Primary" Command="{Binding Main.RefreshCommand, Source={StaticResource Locator}}" />
+    </ContentPage.ToolbarItems>
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout VerticalOptions="FillAndExpand" Margin="0,0,0,20">
+            <Label Text="Buy price for:" FontSize="Large" Margin="10,0,0,0" />
+            <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" Margin="10,0,0,0" />
+            <Label Text="" FontSize="Micro" Margin="10,0,0,0" />
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="240" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <Button Style="{StaticResource PriceButtonStyle}"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            BackgroundColor="Transparent"
+                            InputTransparent="True"
+                            x:Name="MarketPriceBtn"
+                            BorderWidth="25"
+                            Text="{Binding BuyLabel}"
+                            FontSize="{Binding BuyLabelFontSize}"
+                            HorizontalOptions="Center" />
+
+                        <Button Style="{StaticResource PriceButtonInsideRingStyle}"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            BackgroundColor="Transparent"
+                            InputTransparent="True"
+                            x:Name="MarketPriceInsideRingBtn"
+                            BorderWidth="15"
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Button.BorderColor>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <OnPlatform.iOS>#FAFAFA</OnPlatform.iOS>
+                                    <OnPlatform.Android>#FAFAFA</OnPlatform.Android>
+                                </OnPlatform>
+                            </Button.BorderColor>
+                        </Button>
+
+                        <ActivityIndicator IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
+                           IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
+                           Margin="20,0,20,0"
+                           Grid.Column="1"
+                           Grid.Row="0" />
+
+                        <Label  Grid.Column="0"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="3"
+                            Opacity="1"
+                            HorizontalTextAlignment="End"
+                            FontSize="Medium"
+                            Text=" " />
+                    </Grid>
+                </Grid>
+            </StackLayout>
+            <Label FontSize="Micro" Text="Source: blockchain.info" HorizontalOptions="Start" Margin="10,0,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                    Command="{Binding Main.OpenBlockchainUrlCommand, Source={StaticResource Locator}}"
+                    NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+                <Label.Effects>
+                    <effects:UnderlineEffect />
+                </Label.Effects>
+            </Label>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
